@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  background: radial-gradient(circle at center, #001d3d, #000814);
+  overflow: hidden;
+  font-family: Arial;
+}
+
+.sky {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.star {
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  animation: twinkle 2s infinite;
+  cursor: pointer;
+}
+
+.star:nth-child(1) { top: 30%; left: 20%; }
+.star:nth-child(2) { top: 60%; left: 50%; }
+.star:nth-child(3) { top: 40%; left: 80%; }
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.2; }
+}
+
+.note-box {
+  position: absolute;
+  background: #fffbe6;
+  border: 1px solid #aaa;
+  padding: 15px;
+  max-width: 200px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #fff;
+  z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
