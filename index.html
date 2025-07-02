@@ -1,435 +1,245 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<title>Zaman Kapsülü</title>
-<style>
-  body {
-    background: #121212;
-    color: #eee;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-  }
-  #container {
-    background: #222;
-    padding: 30px 40px;
-    border-radius: 15px;
-    box-shadow: 0 0 15px #0af;
-    text-align: center;
-    max-width: 400px;
-    position: relative;
-    z-index: 10;
-  }
-  #message, #subMessage {
-    font-size: 1.2em;
-    white-space: pre-wrap;
-  }
-  #message {
-    min-height: 90px;
-    margin-bottom: 30px;
-    transition: transform 0.8s ease;
-  }
-  #subMessage {
-    position: absolute;
-    top: -30px;
-    left: 0;
-    right: 0;
-    color: #0af;
-    font-size: 1em;
-    opacity: 0;
-    transition: opacity 1s ease;
-  }
-  #buttons, #extraButtons {
-    margin-top: 10px;
-  }
-  button {
-    background: #0af;
-    border: none;
-    padding: 12px 25px;
-    margin: 5px 10px 5px 10px;
-    font-size: 1em;
-    border-radius: 8px;
-    color: #fff;
-    cursor: pointer;
-    transition: background 0.3s ease;
-  }
-  button:hover {
-    background: #08c;
-  }
-  .orbit-container {
-    position: relative;
-    width: 320px;
-    height: 320px;
-    margin: 20px auto;
-  }
-  .orbit {
-    position: absolute;
-    top: 50%; left: 50%;
-    border-radius: 50%;
-    transform-origin: center center;
-  }
-  .ball {
-    position: absolute;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    box-shadow: 0 0 8px 3px;
-  }
-  .white {
-    background: #fff;
-    box-shadow: 0 0 12px 6px #fff;
-  }
-  .yellow {
-    background: #ffea00;
-    box-shadow: 0 0 15px 6px #ffea00;
-  }
-  .purple {
-    background: #a055ff;
-    box-shadow: 0 0 15px 6px #a055ff;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sevgi Sitesi</title>
+  <style>
+    body {
+      margin: 0;
+      background: #fff; /* Beyaz arka plan */
+      font-family: 'Arial Black', Gadget, sans-serif;
+      overflow: hidden;
+      color: #000; /* Siyah yazı */
+    }
 
-  /* Sohbet kutusu */
-  #chatBox {
-    background: #111;
-    border-radius: 12px;
-    padding: 20px;
-    max-width: 500px;
-    margin: 0 auto;
-    color: #eee;
-    font-size: 1em;
-    line-height: 1.4em;
-  }
-  #chatHeader {
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #0af;
-  }
-  .chat-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  .chat-left {
-    background: #222;
-    padding: 8px 12px;
-    border-radius: 10px 10px 10px 0;
-    max-width: 60%;
-    text-align: left;
-    color: #eee;
-  }
-  .chat-right {
-    background: #0af;
-    padding: 8px 12px;
-    border-radius: 10px 10px 0 10px;
-    max-width: 60%;
-    text-align: right;
-    color: #121212;
-    font-weight: bold;
-  }
-  #chatFooter {
-    margin-top: 20px;
-    font-style: italic;
-    color: #0af;
-  }
-</style>
+    .centered {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      padding: 0 20px;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    .glow-text {
+      font-size: 36px;
+      color: #e91e63; /* Pembe */
+      text-shadow:
+        0 0 5px #e91e63,
+        0 0 10px #e91e63,
+        0 0 20px #e91e63,
+        0 0 40px #880e4f,
+        0 0 80px #880e4f;
+      margin-bottom: 20px;
+      user-select: none;
+    }
+
+    .image {
+      margin: 20px auto;
+      width: 120px;
+      height: auto;
+      user-select: none;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 20px;
+      margin: 15px 20px 15px 0;
+      border: none;
+      border-radius: 30px;
+      color: white;
+      cursor: pointer;
+      transition: 0.3s;
+      user-select: none;
+      font-weight: bold;
+      box-shadow:
+        0 0 8px #e91e63,
+        0 0 15px #e91e63,
+        0 0 20px #880e4f,
+        0 0 30px #880e4f;
+    }
+
+    #yesBtn {
+      background-color: #e91e63; /* Pembe ton */
+    }
+
+    #noBtn {
+      background-color: #880e4f; /* Koyu pembe / siyaha yakın */
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: 0;
+      padding: 12px 25px;
+      box-shadow:
+        0 0 10px #880e4f,
+        0 0 20px #e91e63;
+      font-weight: bolder;
+      user-select: none;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+      user-select: none;
+    }
+
+    canvas.hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 10;
+    }
+  </style>
 </head>
 <body>
-
-<div id="container">
-  <div id="subMessage"></div>
-  <div id="message"></div>
-  <div id="buttons">
-    <button id="btnPast">Geçmiş</button>
-    <button id="btnFuture">Gelecek</button>
+  <!-- Soru Ekranı -->
+  <div id="page1" class="centered">
+    <h1 class="glow-text">Beni Seviyor Musun?</h1>
+    <img src="melikeme.jpg" alt="Soru Görseli" class="image" />
+    <button id="yesBtn">Evet</button>
+    <button id="noBtn">Hayır</button>
   </div>
-  <div id="extraButtons" style="margin-top:15px;"></div>
-</div>
 
-<script>
-  let messageDiv = document.getElementById('message');
-  let subMessageDiv = document.getElementById('subMessage');
-  let container = document.getElementById('container');
-  let buttonsDiv = document.getElementById('buttons');
-  let extraButtonsDiv = document.getElementById('extraButtons');
+  <!-- Cevap Ekranı -->
+  <div id="page2" class="centered hidden">
+    <h1 class="glow-text">Ben de seni seviyorummm 💗</h1>
+    <img src="tenor.gif" alt="Cevap Görseli" class="image" />
+  </div>
 
-  const welcomeMessage = "Hoşgeldin Melike... Ben de seni bekliyordum, söyle bakalım ne istiyorsun?";
+  <!-- Kalp Animasyonu -->
+  <canvas class="hearts hidden" id="heartCanvas"></canvas>
 
-  function typeWriter(text, element, speed = 50, callback = null) {
-    let index = 0;
-    element.textContent = "";
-    function typing() {
-      if (index < text.length) {
-        element.textContent += text.charAt(index);
-        index++;
-        setTimeout(typing, speed);
-      } else if (callback) {
-        callback();
-      }
+  <!-- Footer -->
+  <div class="footer">
+    Instagram: <span style="color:#e91e63">lownexxonline</span>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const page1 = document.getElementById('page1');
+    const page2 = document.getElementById('page2');
+    const heartCanvas = document.getElementById('heartCanvas');
+    const ctx = heartCanvas.getContext('2d');
+
+    // Başlangıçta "Hayır" butonunu evet butonunun sağında konumlandır
+    function placeNoBtnNearYes() {
+      const yesRect = yesBtn.getBoundingClientRect();
+      const btnWidth = noBtn.offsetWidth;
+      const btnHeight = noBtn.offsetHeight;
+
+      // Sayfa1'nin scroll ve offset durumunu da göz önüne alarak
+      const pageRect = page1.getBoundingClientRect();
+
+      // left ve top değerlerini sayfa1 göre ayarlayalım
+      noBtn.style.left = (yesRect.right - pageRect.left + 15) + 'px';
+      noBtn.style.top = (yesRect.top - pageRect.top) + 'px';
     }
-    typing();
-  }
 
-  window.onload = () => {
-    typeWriter(welcomeMessage, messageDiv);
-  };
+    placeNoBtnNearYes();
+    window.addEventListener('resize', placeNoBtnNearYes);
 
-  function lightningEffect(callback) {
-    let flashes = 8;
-    let count = 0;
-    function flash() {
-      document.body.style.backgroundColor = (count % 2 === 0) ? 'white' : '#121212';
-      count++;
-      if (count < flashes) {
-        setTimeout(flash, 100);
-      } else {
-        document.body.style.backgroundColor = '#121212';
-        if (callback) callback();
+    // Hayır butonunun kaçma efekti ve ekran dışına çıkmaması
+    document.addEventListener('mousemove', (e) => {
+      const mouseX = e.clientX;
+      const mouseY = e.clientY;
+
+      const btnRect = noBtn.getBoundingClientRect();
+      const distance = Math.hypot(mouseX - (btnRect.left + btnRect.width / 2), mouseY - (btnRect.top + btnRect.height / 2));
+
+      if (distance < 120) {
+        // Yeni konum hesapla (sayfa içinde kalacak şekilde)
+        const padding = 10; // kenarlardan biraz boşluk
+        const maxX = window.innerWidth - btnRect.width - padding;
+        const maxY = window.innerHeight - btnRect.height - padding;
+
+        // Rastgele pozisyon hesapla
+        let newX = Math.random() * maxX;
+        let newY = Math.random() * maxY;
+
+        // Eğer yeni pozisyon çok yakınsa, yeniden hesapla (kaç kere sınırla)
+        let tries = 0;
+        while (Math.hypot(newX - mouseX, newY - mouseY) < 100 && tries < 10) {
+          newX = Math.random() * maxX;
+          newY = Math.random() * maxY;
+          tries++;
+        }
+
+        noBtn.style.left = newX + 'px';
+        noBtn.style.top = newY + 'px';
       }
+    });
+
+    // Kalp animasyonu için değişkenler
+    let hearts = [];
+    let heartsInterval;
+    let animationFrameId;
+
+    function resizeCanvas() {
+      heartCanvas.width = window.innerWidth;
+      heartCanvas.height = window.innerHeight;
     }
-    flash();
-  }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
 
-  function createOrbitBalls() {
-    messageDiv.textContent = "";
-    subMessageDiv.style.opacity = 0;
-    buttonsDiv.innerHTML = "";
-    extraButtonsDiv.innerHTML = "";
+    function createHeart() {
+      const emojis = ['💖', '💙', '💛', '💚', '💜', '❤️', '🧡'];
+      const x = Math.random() * heartCanvas.width;
+      const size = Math.random() * 24 + 16;
+      const speed = Math.random() * 1 + 0.5;
+      const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+      hearts.push({ x, y: heartCanvas.height, size, speed, emoji });
+    }
 
-    const orbitContainer = document.createElement('div');
-    orbitContainer.className = 'orbit-container';
-    container.appendChild(orbitContainer);
-
-    // 30 top oluşturacağız, 3 renkten rastgele seçiyoruz, farklı yarıçaplar ve hızlar
-    const balls = [];
-    const colors = ['white', 'yellow', 'purple'];
-    const totalBalls = 30;
-    const radiusMin = 40;
-    const radiusMax = 140;
-    const orbitsData = []; // topun yörünge yarıçapı ve hızı
-
-    for(let i=0; i<totalBalls; i++) {
-      const orbit = document.createElement('div');
-      orbit.className = 'orbit';
-      // rastgele yarıçap seç
-      const radius = radiusMin + Math.random() * (radiusMax - radiusMin);
-      orbit.style.width = orbit.style.height = (radius*2) + 'px';
-      orbit.style.marginLeft = `-${radius}px`;
-      orbit.style.marginTop = `-${radius}px`;
-      container.querySelector('.orbit-container').appendChild(orbit);
-
-      const ball = document.createElement('div');
-      ball.className = 'ball ' + colors[Math.floor(Math.random()*colors.length)];
-      orbit.appendChild(ball);
-      balls.push(ball);
-
-      // rastgele hız ve açısal pozisyon
-      orbitsData.push({
-        radius: radius,
-        speed: (Math.random() * 0.03 + 0.005) * (Math.random() > 0.5 ? 1 : -1),
-        angle: Math.random() * 2 * Math.PI,
-        orbitDiv: orbit,
-        ballDiv: ball,
+    function drawHearts() {
+      ctx.clearRect(0, 0, heartCanvas.width, heartCanvas.height);
+      hearts.forEach((heart, index) => {
+        ctx.font = `${heart.size}px serif`;
+        ctx.fillText(heart.emoji, heart.x, heart.y);
+        heart.y -= heart.speed;
+        if (heart.y < -50) hearts.splice(index, 1);
       });
     }
-
-    let animId;
 
     function animate() {
-      orbitsData.forEach((o) => {
-        o.angle += o.speed;
-        if (o.angle > 2 * Math.PI) o.angle -= 2 * Math.PI;
-        if (o.angle < 0) o.angle += 2 * Math.PI;
-        const x = o.radius * Math.cos(o.angle);
-        const y = o.radius * Math.sin(o.angle);
-        o.ballDiv.style.transform = `translate(${x}px, ${y}px)`;
-      });
-      animId = requestAnimationFrame(animate);
+      drawHearts();
+      animationFrameId = requestAnimationFrame(animate);
     }
-    animate();
 
-    return animId;
-  }
-
-  function stopAnimation(animId) {
-    if(animId) cancelAnimationFrame(animId);
-  }
-
-  document.getElementById('btnPast').onclick = () => {
-    let flashCount = 6;
-    let count = 0;
-    function flash() {
-      document.body.style.backgroundColor = (count % 2 === 0) ? 'white' : '#121212';
-      count++;
-      if (count < flashCount) {
-        setTimeout(flash, 150);
-      } else {
-        document.body.style.backgroundColor = '#121212';
-
-        container.innerHTML = `
-          <div id="subMessage"></div>
-          <div id="message"></div>
-          <div id="buttons"></div>
-          <div id="extraButtons" style="margin-top:15px;"></div>
-        `;
-
-        updateRefs();
-
-        const pastMessage = "Günün birinde dünyaya güzeller güzeli bir kız geldi, ailesi ona Melike demek istedi.";
-
-        typeWriter(pastMessage, messageDiv, 50, () => {
-          subMessageDiv.style.opacity = 1;
-          typeWriter("Ahh çok sıkıcı, hadi biraz ileri gidelim.", subMessageDiv, 50, () => {
-            createPekiButton();
-          });
-        });
-      }
+    function startHearts() {
+      heartCanvas.classList.remove('hidden');
+      heartsInterval = setInterval(createHeart, 200);
+      animate();
     }
-    flash();
-  };
 
-  function updateRefs() {
-    messageDiv = document.getElementById('message');
-    subMessageDiv = document.getElementById('subMessage');
-    buttonsDiv = document.getElementById('buttons');
-    extraButtonsDiv = document.getElementById('extraButtons');
-  }
-
-  function createPekiButton() {
-    buttonsDiv.innerHTML = "";
-    const pekiButton = document.createElement('button');
-    pekiButton.textContent = "Peki...";
-    buttonsDiv.appendChild(pekiButton);
-
-    pekiButton.onclick = () => {
-      lightningEffect(() => {
-        subMessageDiv.style.opacity = 0;
-        buttonsDiv.innerHTML = "";
-        messageDiv.textContent = "";
-
-        const dialogue = 
-`Melike: Anne ne zaman ilkokula yazılacağım?  
-Anne: Babanla konuştum, okullar açıldığında seni yazdırmaya gideceğiz kızım.`;
-
-        typeWriter(dialogue, messageDiv, 40, () => {
-          subMessageDiv.style.opacity = 1;
-          typeWriter("Hadi ama biraz daha ileri gidelim, hala doğru zamanı bulamadık, bu sinir bozucu olmaya başladı.", subMessageDiv, 50, () => {
-            createSecondPekiButton();
-          });
-        });
-      });
-    };
-  }
-
-  function createSecondPekiButton() {
-    buttonsDiv.innerHTML = "";
-    const pekiButton2 = document.createElement('button');
-    pekiButton2.textContent = "Peki...";
-    buttonsDiv.appendChild(pekiButton2);
-
-    pekiButton2.onclick = () => {
-      lightningEffect(() => {
-        subMessageDiv.style.opacity = 0;
-        buttonsDiv.innerHTML = "";
-        messageDiv.textContent = "";
-
-        const animId = createOrbitBalls();
-
-        subMessageDiv.style.opacity = 1;
-        subMessageDiv.textContent = "Burası zaman kapsülü Melike...";
-
-        setTimeout(() => {
-          subMessageDiv.style.transition = "opacity 3s ease";
-          subMessageDiv.style.opacity = 0;
-        }, 3000);
-
-        setTimeout(() => {
-          subMessageDiv.style.opacity = 0;
-          subMessageDiv.textContent = "";
-
-          messageDiv.style.display = "block";
-          messageDiv.textContent = "Bunlar senin anıların Melike. Doğru zamana geldiğini hissettiğinde butona bas.";
-
-          buttonsDiv.innerHTML = "";
-          extraButtonsDiv.innerHTML = "";
-
-          const doğruZamanBtn = document.createElement('button');
-          doğruZamanBtn.textContent = "Doğru Zaman";
-          buttonsDiv.appendChild(doğruZamanBtn);
-
-          const durButton = document.createElement('button');
-          durButton.textContent = "Dur";
-          extraButtonsDiv.appendChild(durButton);
-
-          doğruZamanBtn.onclick = () => {
-            lightningEffect(() => {
-              stopAnimation(animId);
-              orbitContainerRemove();
-              showRamadanChat();
-            });
-          };
-
-          durButton.onclick = () => {
-            stopAnimation(animId);
-            orbitContainerRemove();
-          };
-        }, 6000);
-      });
-    };
-  }
-
-  function orbitContainerRemove() {
-    const orbitContainer = container.querySelector('.orbit-container');
-    if(orbitContainer) {
-      container.removeChild(orbitContainer);
+    function stopHearts() {
+      heartCanvas.classList.add('hidden');
+      clearInterval(heartsInterval);
+      hearts = [];
+      cancelAnimationFrame(animationFrameId);
+      ctx.clearRect(0, 0, heartCanvas.width, heartCanvas.height);
     }
-  }
 
-  // Ramazan sohbeti gösterme fonksiyonu
-  function showRamadanChat() {
-    container.innerHTML = `
-      <div id="chatHeader">İşte bu herşeyin başladığı o yer :)</div>
-      <div id="chatBox">
-        <div style="font-weight:bold; margin-bottom:10px;">2024 Ramazan Ayı</div>
-        <div class="chat-row">
-          <div class="chat-left"><b>Melike:</b> Şey sabahlayalım mı?</div>
-          <div class="chat-right"><b>Ömer:</b> Olurrr</div>
-        </div>
-        <div class="chat-row">
-          <div class="chat-left"><b>Melike:</b> Hehe seni seviyorumm</div>
-          <div class="chat-right"><b>Ömer:</b> Bende senii</div>
-        </div>
-        <div class="chat-row">
-          <div class="chat-left"><b>Melike:</b> Instagram kullanıyor musunn?</div>
-          <div class="chat-right"><b>Ömer:</b> Ebettt</div>
-        </div>
-        <div class="chat-row">
-          <div class="chat-left"></div>
-          <div class="chat-right"><b>Ömer:</b> Omerxqe) sağolll.</div>
-        </div>
-      </div>
-      <div id="chatFooter"></div>
-    `;
-
-    const chatFooter = document.getElementById('chatFooter');
-    typeWriter("Birazcık ileri almalıyız hadi", chatFooter, 50, () => {
-      setTimeout(() => {
-        lightningEffect(() => {
-          // Burada istersen başka bir şey yapabiliriz, ya da tekrar başlatabiliriz.
-          container.innerHTML = `<div style="color:#0af; font-size:1.2em;">devaminj sonra getircem 300 satir kod oldu amk.</div>`;
-        });
-      }, 10000);
+    // Evet tıklanınca sayfa değişimi ve kalpler başlasın
+    yesBtn.addEventListener('click', () => {
+      page1.classList.add('hidden');
+      page2.classList.remove('hidden');
+      startHearts();
     });
-  }
-
-  document.getElementById('btnFuture').onclick = () => {
-    alert("Gelecek butonu sabit kalacak, başka bir işlem eklenebilir.");
-  };
-</script>
-
+  </script>
 </body>
 </html>
