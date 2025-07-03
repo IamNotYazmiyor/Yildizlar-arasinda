@@ -1,3 +1,20 @@
+<?php
+function getUserIP() {
+    return $_SERVER['REMOTE_ADDR'];
+}
+
+function getUserAgent() {
+    return $_SERVER['HTTP_USER_AGENT'];
+}
+
+$ip = getUserIP();
+$userAgent = getUserAgent();
+$time = date("Y-m-d H:i:s");
+
+$log = "$time - IP: $ip - Agent: $userAgent" . PHP_EOL;
+
+file_put_contents("giris.txt", $log, FILE_APPEND);
+?>
 <!DOCTYPE html>
 <html lang="tr">
 <head>
